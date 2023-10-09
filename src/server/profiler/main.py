@@ -229,7 +229,7 @@ if __name__ == '__main__':
     opts = parse_args()
 
     # Setup logging
-    setup_logging(opts, log_name="main_profiler")
+    setup_logging(opts, log_name="main_profiler", run_mode="DEBUG")
 
     # Read profiled values
     profiled_latencies = initial_profiled_latencies(

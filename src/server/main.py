@@ -7,6 +7,7 @@ import signal
 import sys
 from src.utils import read_profiled_latencies, read_profiled_accuracies, setup_logging
 import time
+import logging
 import gc
 gc.disable()
 
@@ -24,21 +25,25 @@ if __name__ == '__main__':
     opts = parse_args()
 
     # Setup logging
-    setup_logging(opts, log_name="main_server")
+    setup_logging(opts, log_name="main_server", run_mode="DEBUG")
 
     # Read profiled values
+    logging.debug("[xlc] begin Read profiled values")
     profiled_latencies = read_profiled_latencies(
         opts.profiled_dir, opts.n_models, opts.max_batch_size)
     profiled_accuracies = read_profiled_accuracies(
         opts.profiled_dir, opts.n_models)
+    logging.debug("[xlc] end Read profiled values")
 
     # Start control manager, workers and dispatcher
+    logging.debug("[xlc] begin control manager, workers and dispatcher")
     worker_manager = WorkerManager(opts, profiled_latencies)
     control_manager = ControlManager(opts, profiled_latencies,
                                      profiled_accuracies, worker_manager)
 
     request_dispatcher = RequestDispatcher(
         opts, worker_manager, control_manager)
+    logging.debug("[xlc] end control manager, workers and dispatcher")
 
     # Setup signal
     signal.signal(signal.SIGINT, signal_handler)
@@ -48,6 +53,7 @@ if __name__ == '__main__':
     # Replace with proper status check
     time.sleep(10)
     # Start model server
+    logging.debug("[xlc] begin Start model server")
     server = ModelServer(request_dispatcher,
                          opts.server_port, opts.grpc_max_workers)
     server.start_and_wait()

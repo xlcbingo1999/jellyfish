@@ -33,8 +33,8 @@ class Scheduler(mp.Process):
 
     def _init_process(self):
         # Setup logging
-        setup_logging(self.opts, log_name="scheduler", run_mode="RELEASE")
-        # setup_logging(self.opts, log_name="scheduler", run_mode="DEBUG")
+        # setup_logging(self.opts, log_name="scheduler", run_mode="RELEASE")
+        setup_logging(self.opts, log_name="scheduler", run_mode="DEBUG")
         self._select_algos()
         self._scheduler_run_count = 0
         self._stats = Logger(os.path.join(self.opts.log_path, "scheduler.csv"),

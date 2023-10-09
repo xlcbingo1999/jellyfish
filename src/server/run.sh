@@ -1,8 +1,8 @@
 #!/bin/bash
 
-: ${root_dir="$HOME/jellyfish/"}
-: ${src_path="$root_dir/src/"}
-: ${log_path="$root_dir/logs/server/"}
+: ${root_dir="$HOME/jellyfish"}
+: ${src_path="$root_dir/src"}
+: ${log_path="$root_dir/logs/server"}
 : ${run_mode="RELEASE"}
 : ${num_gpus=2}
 
@@ -49,8 +49,18 @@ TERMINATE_FLAG=0
 trap handle_sigint SIGINT
 trap handle_sigterm SIGTERM
 
-while [ ${TERMINATE_FLAG} -ne 1 ]
+while [ ${TERMINATE_FLAG} -ne 1 ] 
 do 
+	TERMINATE_FLAG=1 # TODO(xlc): 防止无限循环??
+	if [ -f "/home/ubuntu/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/ubuntu/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/ubuntu/anaconda3/bin:$PATH"
+    fi
+	conda activate test_py311
+	# conda list
+	# python3 ${root_dir}/test_conda.py
+	
 	python3 ${src_path}/server/main.py \
 	  --weights_dir "${root_dir}/pytorch_yolov4/models/" \
 	  --model_config_dir "${root_dir}/pytorch_yolov4/models/cfg" \

@@ -8,5 +8,6 @@ python3 -m grpc_tools.protoc \
 	${src_path}/protos/predict.proto \
 	--python_out=${src_path}/protos/ \
 	--grpc_python_out=${src_path}/protos/
-
+echo 'suceess python'
 sed -i '/import predict_pb2 as predict__pb2/c\from . import predict_pb2 as predict__pb2' ${src_path}/protos/predict_pb2_grpc.py
+echo 'success second'

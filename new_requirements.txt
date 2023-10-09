@@ -1,0 +1,9 @@
+requests
+grpcio
+grpcio-tools
+numpy
+pandas
+opencv-python
+matplotlib
+docplex
+docloud

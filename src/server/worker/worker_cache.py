@@ -289,7 +289,7 @@ class Worker(mp.Process):
         ''' Initialize all process local things here '''
         # Setup logging
         utils.setup_logging(
-            self.opts, log_name="worker_{}".format(self._gpu_number))
+            self.opts, log_name="worker_{}".format(self._gpu_number), run_mode="DEBUG")
 
         # 1. Load all models into cpu memory.
         self._models = self._load_all_models_cpu()
