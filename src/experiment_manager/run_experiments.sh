@@ -11,7 +11,7 @@
 : ${client_ssh_port:=22}
 : ${client_network_iface:="eth0"}
 : ${network_trace_type:="synthetic_trace"}
-: ${root_dir="${HOME}/jellyfish/"}
+: ${root_dir="${HOME}/jellyfish"}
 : ${log_path="${root_dir}/logs/experiment_manager/${network_trace_type}"}
 
 # Some constant variables

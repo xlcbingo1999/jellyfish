@@ -25,6 +25,13 @@ export LD_LIBRARY_PATH="$HOME/.local/lib/"
 
 [ -e ${log_path} ] || mkdir -p ${log_path}
 
+if [ -f "/home/ubuntu/anaconda3/etc/profile.d/conda.sh" ]; then
+    . "/home/ubuntu/anaconda3/etc/profile.d/conda.sh"
+  else
+    export PATH="/home/ubuntu/anaconda3/bin:$PATH"
+  fi
+conda activate test_py311
+
 python3 ${root_dir}/src/client/main.py \
   --slo ${slo} \
   --frame_rate ${fps} \

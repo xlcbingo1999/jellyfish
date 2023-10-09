@@ -21,7 +21,12 @@ ulimit -n 500000
 for (( model_number=0; model_number < num_models; model_number++ ))
 do
 	echo "Profiling model number ${model_number}"
-
+	if [ -f "/home/ubuntu/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/ubuntu/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/ubuntu/anaconda3/bin:$PATH"
+    fi
+	conda activate test_py311
 	python3 ${src_path}/server/profiler/main.py \
 	  --weights_dir "${root_dir}/pytorch_yolov4/models/" \
 	  --model_config_dir "${root_dir}/pytorch_yolov4/models/cfg" \

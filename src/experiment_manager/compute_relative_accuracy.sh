@@ -12,6 +12,12 @@ gt_dir=$2
 : ${output_det_file="output_dets.json"}
 expr_manager_root_dir="${root_dir}/src/experiment_manager/"
 
+if [ -f "/home/ubuntu/anaconda3/etc/profile.d/conda.sh" ]; then
+    . "/home/ubuntu/anaconda3/etc/profile.d/conda.sh"
+  else
+    export PATH="/home/ubuntu/anaconda3/bin:$PATH"
+  fi
+conda activate test_py311
 # First convert output_det.json to per frame in text file
 [ -e "${det_dir}/output_text_dir" ] || mkdir -p "${det_dir}/output_text_dir"
 rm -r ${det_dir}/output_text_dir/*

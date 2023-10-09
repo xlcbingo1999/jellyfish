@@ -16,11 +16,11 @@ if [ $# -eq 6 ]; then
   network_trace_type=$6
 fi
 
-server_root_dir="/home/${server_user}/jellyfish/"
+server_root_dir="/home/${server_user}/jellyfish"
 
 : ${iter:=0}
-: ${expr_manager_root_dir="${HOME}/jellyfish/"}
-: ${log_path="${expr_manager_root_dir}/logs/experiment_manager/"}
+: ${expr_manager_root_dir="${HOME}/jellyfish"}
+: ${log_path="${expr_manager_root_dir}/logs/experiment_manager"}
 [ -e temp_clients_pid.txt ] && rm temp_clients_pid.txt
 
 function get_filename() {

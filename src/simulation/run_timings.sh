@@ -18,6 +18,12 @@ do
 		num_clients=$(( ${num_gpus} * ${i} ))
 		echo "Experiment: sa_algo_${num_gpus}_${num_clients}"
 
+		if [ -f "/home/ubuntu/anaconda3/etc/profile.d/conda.sh" ]; then
+			. "/home/ubuntu/anaconda3/etc/profile.d/conda.sh"
+		else
+			export PATH="/home/ubuntu/anaconda3/bin:$PATH"
+		fi
+		conda activate test_py311
 		python3 ${src_path}/simulation/main_timings.py \
 		  	--num_clients ${num_clients} \
 		  	--num_gpus ${num_gpus} \
