@@ -55,14 +55,14 @@ trap "stop" SIGHUP SIGINT SIGTERM
 # NOTE: Check if ~/.bashrc on the host has commented out to allow non-interactive ssh environment
 # ssh -tt -n $server_user@$server_host -p $server_ssh_port "$server_root_dir/moth/server/run.sh" &
 server_ssh_pid=$!
-sleep 60 # Wait for enough time to start server processes.
+sleep 5 # sleep 60 # Wait for enough time to start server processes.
 echo "Server started!"
 
 # Start all clients
 while IFS=" " read -r host_id host port net_iface user root_dir slo fps
 do
   # Wait for some random duration before we start the next client
-  random_wait 10
+  random_wait 2 # random_wait 10
 
   if [ -z "${network_trace_type}" ]; then
     echo "Running client ${host_id} on $user@$host without network shaping..."

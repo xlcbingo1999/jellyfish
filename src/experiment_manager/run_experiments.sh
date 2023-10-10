@@ -15,10 +15,10 @@
 : ${log_path="${root_dir}/logs/experiment_manager/${network_trace_type}"}
 
 # Some constant variables
-FPS="15 25"
-SLOs="75 100 150"
-CLIENTS="1 2 4 8"
-VIDEOS="dds/trafficcam_1.mp4 dds/trafficcam_2.mp4 dds/trafficcam_3.mp4"
+FPS="15" # 15 25
+SLOs="75" #  100 150
+CLIENTS="2" # 1 2 4 8
+VIDEOS="dds/trafficcam_1.mp4" # dds/trafficcam_2.mp4 dds/trafficcam_3.mp4
 
 # Prepare clients config files by replacing template values with the actual value
 clients_cfg_dir="${root_dir}/src/experiment_manager/clients_cfg/"
@@ -49,6 +49,7 @@ do
             ${clients_cfg_dir}/.temp/client_cfg_template_${clients}_${fps}_${slo}.txt \
             ${video} \
             ${network_trace_type}
+          echo "Finished Iter: ${iter}, Running experiment ${clients}_${fps}_${slo} with network shaping"
         done
       done
     done
