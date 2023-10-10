@@ -82,6 +82,9 @@ class ModelServingServicer(predict_pb2_grpc.ModelServingServicer):
         with self._lock:
             self._clients_dict[client_id] = client_stub
 
+        logging.info(
+            f"[xlc] register client {client_id}"
+        )
         client_token = predict_pb2.ClientToken(client_id=client_id)
         return predict_pb2.RegisterResponse(client_token=client_token, model_number=model_number)
 
@@ -90,6 +93,9 @@ class ModelServingServicer(predict_pb2_grpc.ModelServingServicer):
         with self._lock:
             del self._clients_dict[request.client_id]
 
+        logging.info(
+            f"[xlc] unregister client {request.client_id}"
+        )
         return predict_pb2.Empty()
 
     def predict(self, request_iter: Iterable[predict_pb2.PredictRequest],
