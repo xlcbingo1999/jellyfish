@@ -256,7 +256,7 @@ class ModelServer(object):
 
         # This line can be ignored
         predict_pb2_grpc.add_ModelServingServicer_to_server(
-            ModelServingServicer(dispatcher), self. model_server)
+            ModelServingServicer(dispatcher), self.model_server)
 
         # bind the server to the port defined above
         self.model_server.add_insecure_port('[::]:{}'.format(server_port))

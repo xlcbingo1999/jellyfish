@@ -18,7 +18,7 @@ video_name=$5
 : ${model_server_host="$1"}
 : ${stats_fname="frame_stats.csv"}
 : ${log_path="$root_dir/logs/client/${my_id}"}
-: ${run_mode="RELEASE"}
+: ${run_mode="DEBUG"}
 
 export PYTHONPATH=${root_dir}
 export LD_LIBRARY_PATH="$HOME/.local/lib/"

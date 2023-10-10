@@ -3,7 +3,7 @@
 : ${root_dir="$HOME/jellyfish"}
 : ${src_path="$root_dir/src"}
 : ${log_path="$root_dir/logs/server"}
-: ${run_mode="RELEASE"}
+: ${run_mode="DEBUG"}
 : ${num_gpus=2}
 
 export PYTHONPATH=${root_dir}
@@ -51,7 +51,7 @@ trap handle_sigterm SIGTERM
 
 while [ ${TERMINATE_FLAG} -ne 1 ] 
 do 
-	TERMINATE_FLAG=1 # TODO(xlc): 防止无限循环??
+	TERMINATE_FLAG=1 # TODO(xlc): 临时防止无限循环, 这里的含义大概就是要避免server掉线
 	if [ -f "/home/ubuntu/anaconda3/etc/profile.d/conda.sh" ]; then
         . "/home/ubuntu/anaconda3/etc/profile.d/conda.sh"
     else
@@ -76,7 +76,7 @@ do
 	  --active_model_count 5 \
 	  > "${log_path}/stdout.log" 2>&1 &
 
-	server_pid=$!
+	server_pid=$! # 读取std返回的端口
 	echo "Server ${server_pid} started!"
 	wait "$server_pid"
 	echo "Server ${server_pid} finished!"

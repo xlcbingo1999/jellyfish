@@ -4,7 +4,7 @@
 : ${src_path="${root_dir}/src/"}
 : ${profile_path="${root_dir}/pytorch_yolov4/profiles/latency/"}
 : ${log_path="${root_dir}/logs/profiler/"}
-: ${run_mode="RELEASE"}
+: ${run_mode="DEBUG"}
 : ${num_gpus=2}
 : ${num_models=16}
 

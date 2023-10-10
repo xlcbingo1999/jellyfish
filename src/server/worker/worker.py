@@ -184,7 +184,7 @@ def _executor(simulate_gpu, gpu_number, profiled_latencies,
     stats_logger = utils.Logger(os.path.join(log_path, f"worker_executor_{gpu_number}.csv"),
                                 ["index", "active_model_number", "active_batch_size", "requests_in_batch",
                                  "idle_plus_exec_time", "gpu_execution_time"])
-    utils.set_process_nice(nice_value=-20)
+    # utils.set_process_nice(nice_value=-20) # TODO(xlc): 这个容易出bug, 先注释
     model_utils.set_deterministic_behaviour(seed=1)
     cuda_stream = torch.cuda.Stream(gpu_number)
     # cuda_stream = torch.cuda.default_stream(gpu_number)

@@ -180,7 +180,7 @@ def _executor(simulate_gpu, gpu_number, profiled_latencies,
 
     # Run model at periodic interval with batch size
     logging.info(f"Worker executor on gpu {gpu_number} started!")
-    utils.set_process_nice(nice_value=-20)
+    # utils.set_process_nice(nice_value=-20) # TODO(xlc): 这个容易出bug, 先注释
     model_utils.set_deterministic_behaviour(seed=1)
     cuda_stream = torch.cuda.Stream(gpu_number)
     # cuda_stream = torch.cuda.default_stream(gpu_number)

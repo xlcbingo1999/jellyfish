@@ -26,7 +26,7 @@ def timestamp_to_str(ts):
 
 def set_process_nice(nice_value=0):
     my_pid = os.getpid()
-    os.system(f"sudo renice -n {nice_value} -p {my_pid}")
+    os.system(f"sudo renice -n {nice_value} -p {my_pid}") # TODO(xlc): 设置优先级失败?
 
 
 def read_profiled_accuracies(profiled_dir, total_models):

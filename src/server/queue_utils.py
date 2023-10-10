@@ -12,6 +12,7 @@ class ParallelQueue(object):
     per queue. For example, mp.SimpleQueue uses system pipe and it's not straighforward 
     to increase the Pipe's buffer size and also the max size limit. 
     Therefore, using multiple parallel queues might overcome the issue of size limit.
+    
     '''
 
     def __init__(self, QueueType, count=1):
