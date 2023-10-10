@@ -1,7 +1,7 @@
 #!/bin/bash
 
-: ${root_dir="$HOME/jellyfish/"}
-: ${src_path="$root_dir/src/"}
+: ${root_dir="$HOME/jellyfish"}
+: ${src_path="$root_dir/src"}
 
 python3 -m grpc_tools.protoc \
 	--proto_path=${src_path}/protos/ \

@@ -11,8 +11,8 @@ slo=$3
 fps=$4
 video_name=$5
 
-: ${root_dir="$HOME/jellyfish/"}
-: ${src_path="$root_dir/src/"}
+: ${root_dir="$HOME/jellyfish"}
+: ${src_path="$root_dir/src"}
 : ${video_file="${root_dir}/datasets/${video_name}"}
 : ${image_file="${root_dir}/datasets/coco/val2017/image_list_10.txt"}
 : ${model_server_host="$1"}

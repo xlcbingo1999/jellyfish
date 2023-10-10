@@ -38,6 +38,7 @@ function stop() {
     echo "Finshed pid ${pid}"
   done < temp_clients_pid.txt 
   rm temp_clients_pid.txt
+  echo "[xlc] success stop temp_clients_pid"
   exit  
 }
 
@@ -53,10 +54,10 @@ trap "stop" SIGHUP SIGINT SIGTERM
 
 # Start server first
 # NOTE: Check if ~/.bashrc on the host has commented out to allow non-interactive ssh environment
-# ssh -tt -n $server_user@$server_host -p $server_ssh_port "$server_root_dir/moth/server/run.sh" &
-server_ssh_pid=$!
+# ssh -tt -n $server_user@$server_host -p $server_ssh_port "$server_root_dir/src/server/run.sh" &
+# server_ssh_pid=$!
 sleep 5 # sleep 60 # Wait for enough time to start server processes.
-echo "Server started!"
+# echo "Server started!"
 
 # Start all clients
 while IFS=" " read -r host_id host port net_iface user root_dir slo fps

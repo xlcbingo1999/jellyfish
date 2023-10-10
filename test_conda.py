@@ -22,6 +22,18 @@ client_ip=10.43.229.56 \
 client_username=ubuntu \
 total_iter=1 \
 network_trace_type=synthetic_trace \
-./run_experiments.sh
+./run_experiments.sh > /home/ubuntu/jellyfish/temp_result.log
 
-ps -ef | grep "/bin/bash /home/ubuntu/jellyfish//src/client/run_network_shaping.sh" | grep -v grep | awk '{print $2}' | xargs -r kill
+
+# base_root_path=/home/ubuntu/jellyfish \
+# src_manager_path=src/experiment_manager \
+# bash ${base_root_path}/${src_manager_path}/run_experiments.sh \
+# > ${base_root_path}/logs/experiment_manager/${network_trace_type}/
+
+pkill run.sh; pkill python3; sudo pkill shape_tbf
+ps -ef | grep "/bin/bash /home/ubuntu/jellyfish/src/client/run_network_shaping.sh" | grep -v grep | awk '{print $2}' | xargs -r kill
+
+
+# ps -ef | grep "/bin/bash /home/ubuntu/jellyfish/src/client/run.sh" | grep -v grep | awk '{print $2}' | xargs -r kill
+# ps -ef | grep "python3 /home/ubuntu/jellyfish/src/client/main.py" | grep -v grep | awk '{print $2}' | xargs -r kill
+

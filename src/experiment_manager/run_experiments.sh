@@ -21,7 +21,7 @@ CLIENTS="2" # 1 2 4 8
 VIDEOS="dds/trafficcam_1.mp4" # dds/trafficcam_2.mp4 dds/trafficcam_3.mp4
 
 # Prepare clients config files by replacing template values with the actual value
-clients_cfg_dir="${root_dir}/src/experiment_manager/clients_cfg/"
+clients_cfg_dir="${root_dir}/src/experiment_manager/clients_cfg"
 [ -e "${clients_cfg_dir}/.temp/" ] ||  mkdir "${clients_cfg_dir}/.temp/"
 cp ${clients_cfg_dir}/* ${clients_cfg_dir}/.temp/
 find "${clients_cfg_dir}/.temp/" -type f -exec sed -i "s/client_ip/${client_ip}/g" {} \;
@@ -58,6 +58,6 @@ done
 
 # Delete the clients config as it may contain some sensitive info
 rm -r "${clients_cfg_dir}/.temp/"
-
+echo "[xlc] succes finished run_experiments.sh"
 # Signal running process on server to terminate
 # ssh -n ${server_username}@${server_ip} -p ${server_ssh_port} "pkill --signal 15 run.sh"

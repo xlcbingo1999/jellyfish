@@ -13,8 +13,8 @@ video_name=$5
 my_rank=$( echo $my_host_id | awk -F'_' '{print $2}' )
 network_iface=$6
 
-: ${root_dir="$HOME/jellyfish/"}
-: ${src_path="$root_dir/src/"}
+: ${root_dir="$HOME/jellyfish"}
+: ${src_path="$root_dir/src"}
 : ${shaping_script="${root_dir}/network_shaping/shape_tbf.sh"}
 : ${log_path:="${root_dir}/logs/client/${my_host_id}"}
 
@@ -52,6 +52,8 @@ echo "$my_host_id: PIDs run:${run_pid}, python:${python_client_pid}"
 # Get GRPC tcp port for python_client_pid
 while true
 do
+	echo "[xlc]" 
+	echo "sudo netstat -apn  | grep '${python_client_pid}/python3' | awk -F' ' '{print $4}' | awk -F':' '{print $2}'"
 	grpc_client_port="$( sudo netstat -apn  | grep "${python_client_pid}/python3" | awk -F' ' '{print $4}' | awk -F':' '{print $2}' )"
 	if [ "${grpc_client_port}" != "" ]; then
 		break
