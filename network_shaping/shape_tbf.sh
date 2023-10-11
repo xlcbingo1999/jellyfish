@@ -28,8 +28,10 @@ tbf_burst=1540
 function init() {
   echo "ts,bw"
   
+  echo "[xlc] tc qdisc add dev $tc_adapter root handle 1: prio bands 16"
   tc qdisc add dev $tc_adapter root handle 1: prio bands 16
   
+  echo "[xlc] tc qdisc add dev $tc_adapter parent 1:${MY_BAND} handle ${MY_HANDLE}: tbf rate 100Mbit latency "${tbf_latency}"ms burst ${tbf_burst} "
   tc qdisc add dev $tc_adapter parent 1:${MY_BAND} handle ${MY_HANDLE}: tbf rate 100Mbit latency "${tbf_latency}"ms burst ${tbf_burst} 
 
   # @NOTE: Uncomment the below line for enabling shaping at IP level
@@ -37,6 +39,7 @@ function init() {
 
   # @NOTE: Uncomment the below line for enabling shaping at source port level
   # tc filter add dev $tc_adapter protocol ip parent 1: prio 1 u32 match ip sport ${SRC_PORT} 0xffff flowid 1:1
+  echo "[xlc] tc filter add dev $tc_adapter protocol ip parent 1: prio 1 u32 match ip sport ${SRC_PORT} 0xffff flowid 1:${MY_BAND}"
   tc filter add dev $tc_adapter protocol ip parent 1: prio 1 u32 match ip sport ${SRC_PORT} 0xffff flowid 1:${MY_BAND}
 
   # @NOTE: Uncomment the below line for enabling shaping at dst port level
@@ -51,6 +54,7 @@ function clear() {
   # tc qdisc del dev $tc_adapter root
 
   # Delete the qdisc of this prio band
+  echo "[xlc] tc qdisc del dev $tc_adapter parent 1:${MY_BAND} handle ${MY_HANDLE}:"
   tc qdisc del dev $tc_adapter parent 1:${MY_BAND} handle ${MY_HANDLE}:
 }
 
@@ -65,6 +69,7 @@ function change_bw() {
   if [ 1 -eq "$(echo "$1 <= 5" | bc)" ]; then
     tbf_burst=1540
   fi
+  echo "[xlc] tc qdisc change dev $tc_adapter parent 1:${MY_BAND} handle ${MY_HANDLE}: tbf rate "$1"Mbit latency "${tbf_latency}"ms burst ${tbf_burst}"
   tc qdisc change dev $tc_adapter parent 1:${MY_BAND} handle ${MY_HANDLE}: tbf rate "$1"Mbit latency "${tbf_latency}"ms burst ${tbf_burst}
 }
 
