@@ -38,8 +38,13 @@ function stop() {
 trap "stop" SIGHUP SIGINT SIGTERM
 
 # Run client
+echo "[xlc] before run.sh"
 ${src_path}/client/run.sh ${model_server_host} ${my_host_id} ${slo} ${fps} ${video_name} &
 run_pid="$!"
+echo "[xlc] start run.sh"
+echo "[xlc] id_chan? $(pgrep -P $run_pid) before sleep"
+sleep 10
+echo "[xlc] id_chan? $(pgrep -P $run_pid) end sleep"
 while true
 do
 	python_client_pid=$( pgrep -P $run_pid )
@@ -52,9 +57,10 @@ echo "$my_host_id: PIDs run:${run_pid}, python:${python_client_pid}"
 # Get GRPC tcp port for python_client_pid
 while true
 do
-	echo "[xlc]" 
-	echo "sudo netstat -apn  | grep '${python_client_pid}/python3' | awk -F' ' '{print $4}' | awk -F':' '{print $2}'"
+	echo "[xlc] sudo netstat -apn  | grep '${python_client_pid}/python3' | awk -F' ' '{print $4}' | awk -F':' '{print $2}'"
+	echo "[xlc] id_chan? $(pgrep -P $run_pid)"
 	grpc_client_port="$( sudo netstat -apn  | grep "${python_client_pid}/python3" | awk -F' ' '{print $4}' | awk -F':' '{print $2}' )"
+	echo "[xlc] grpc_client_port: ${grpc_client_port}"
 	if [ "${grpc_client_port}" != "" ]; then
 		break
 	fi
